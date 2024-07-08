@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="deslynx_alert.service.alert_helper" class="DesLynx\AlertBundle\Service\AlertHelper">
+            <argument type="service" id="mailer.mailer" />
+            <argument type="service" id="monolog.logger" />
+            <argument>%kernel.environment%</argument>
+            <argument/>
+            <argument/>
+        </service>
+
+        <service id="deslynx_alert.monolog.handler.alert_mailer_handler" class="DesLynx\AlertBundle\Monolog\Handler\AlertMailerHandler">
+            <argument type="service" id="deslynx_alert.service.alert_helper" />
+        </service>
+
+        <service id="DesLynx\AlertBundle\Service\AlertHelper" alias="deslynx_alert.service.alert_helper" />
+        <service id="DesLynx\AlertBundle\Monolog\Handler\AlertMailerHandler" alias="deslynx_alert.monolog.handler.alert_mailer_handler" />
+    </services>
+</container>
