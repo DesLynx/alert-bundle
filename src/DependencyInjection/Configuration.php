@@ -19,6 +19,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('from')->isRequired()->info('The sender of the email, like "Name <email@address.com>" or a simple email.')->end()
                 ->arrayNode('to')
+                    ->performNoDeepMerging()
                     ->beforeNormalization()->castToArray()->end()
                     ->isRequired()
                     ->requiresAtLeastOneElement()

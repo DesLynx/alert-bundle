@@ -51,21 +51,34 @@ Configuration
 -------------
 
 ```yaml
-# /config/packeges/deslynx_alert.yaml
+# /config/packages/deslynx_alert.yaml
 deslynx_alert:
 
     # The sender of the email, like "Name <email@address.com>" or a simple email.
-    from:                 ~ # Required
+    from: ~ # Required
 
     # A list of always added recipients for the email, like "Name <email@address.com>" or a simple email.
-    to:                   [] # Required
+    to: [] # Required
 
     # Your project name. Included in the email subject
-    projectName:          'My project'
+    projectName: 'My project'
 
     # If you want to use a custom email transport set this to the name of the transport.
-    transport:            null
+    transport: null
+
+# If you need another configuration for specific environments you can overwrite some configs
+#when@dev:
+#  deslynx_alert:
+#    from: ~
+#    to: []
+#    projectName: 'My project'
+#    transport: null
 ```
+
+Important note
+-----
+
+This bundle rely on the [Symfony Mailer](https://symfony.com/doc/current/mailer.html) component for sending email so be sure to have it configured. 
 
 Usage (service)
 -----
@@ -95,7 +108,7 @@ Usage (Monolog Handler)
 
 This bundle provide a Monolog Handler using the `AlertHelper` service. It allows to add a monolog handler config to send an alert email with the full log stack on every critical error happening in the project. 
 
-Just add this to your monolog config:
+To enable this functionality, require the [MonologBundle](https://symfony.com/doc/current/logging.html#monolog) if not already done then just add this to your monolog config:
 
 ```yaml
 # config/packages/monolog.yaml
